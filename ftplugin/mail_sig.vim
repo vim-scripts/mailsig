@@ -2,6 +2,8 @@
 " When editing a mail message, :Sign provides you with a list of signatures.
 " It then allows you to select a signature to place at the bottom of your
 " e-mail
+"
+" This file is in the public domain, and there is NO warranty.
 
 " TODO: more documentation
 " 	test in GVim, on Windows, etc.
