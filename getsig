@@ -1,0 +1,49 @@
+#!/usr/bin/python
+
+"""getsig
+Gets signature headers or a signature from my signatures file (~/.sigs).
+
+Usage:
+
+getsig -h
+getsig -s signum
+
+-h lists headers with numbers, and -s gets a signature.
+
+This program is in the public domain.
+"""
+
+import os
+from getopt import getopt
+import sys
+
+opts, args = getopt(sys.argv[1:], "hs:")
+if len(opts) == 1:
+    if opts[0][0] == '-h':
+        # List headers
+        file = open(os.path.expanduser("~/.sigs"))
+        count = 0
+        for line in file.readlines():
+            # Get the entry as a list...
+            entry = eval(line)
+            if len(entry) != 2:
+                continue
+            count += 1
+            print "%d)\t%s" % (count, entry[0])
+        file.close()
+    elif opts[0][0] == '-s':
+        # Fetch a signature
+        file = open(os.path.expanduser("~/.sigs"))
+        count = 0
+        for line in file.readlines():
+            # Here we get loop until we reach the right one.
+            # We need to eval each entry to make sure we get the right count.
+            entry = eval(line)
+            if len(entry) != 2:
+                continue
+            count += 1
+            if count == int(opts[0][1]):
+                # OK, this is the one
+                print entry[1]
+                break
+        file.close()
